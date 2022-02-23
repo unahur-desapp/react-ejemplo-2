@@ -61,4 +61,55 @@ function App04() {
     </div>;
 }
 
-export const App = App04;
+function App05() {
+    return <div className="container">
+        <div className="titleFrame">
+            <h1 className="title">Frases célebres</h1>
+        </div>
+        <div className="phraseAuthorBlock">
+            <div className="phraseAuthorInfoFrame">
+                <h2 className='authorTitle'>Chapulín colorado</h2>
+                <div>
+                    <img className="image" src="https://res.cloudinary.com/remezcla/images/f_auto,q_auto/v1639757764/production/El_Chapulin_Colorado_Film/El_Chapulin_Colorado_Film.jpeg?_i=AA"  alt=""/>
+                </div>
+            </div>
+            <div className="phraseGroupFrame">
+                <p className="phrase">¡No contaban con mi astucia!</p>
+                <p className="phrase">Se aprovechan de mi nobleza</p>
+                <p className="phrase">Síganme los buenos</p>
+                <p className="phrase">Que no panda el cúnico</p>
+            </div>
+        </div>
+        <div className="phraseAuthorBlock">
+            <div className="phraseAuthorInfoFrame">
+                <h2 className='authorTitle'>Terminator</h2>
+                <div>
+                    <img className="image" src="https://www.cinematographe.it/wp-content/uploads/2019/11/16hVhjMagAdrMG44A86c3YQ.jpeg"  alt=""/>
+                </div>
+            </div>
+            <div className="phraseGroupFrame">
+                <p className="phrase">I'll be back</p>
+                <p className="phrase">Hasta la vista, baby</p>
+                <p className="phrase">I need your clothes, your boots, and your motorcycle</p>
+                <p className="phrase">You're terminated</p>
+            </div>
+        </div>
+        <div className="phraseAuthorBlock">
+            <div className="phraseAuthorInfoFrame">
+                <h2 className='authorTitle'>Star Wars</h2>
+                <div>
+                    <img className="image" src="https://www.fanbolt.com/storage/2021/10/Star-Wars-Quotes.jpg" alt=""/>
+                </div>
+            </div>
+            <div className="phraseGroupFrame">
+                <p className="phrase">May the Force be with you</p>
+                <p className="phrase">I am your father</p>
+                <p className="phrase">A long time ago in a galaxy far, far away…</p>
+                <p className="phrase">The dark side is in our blood</p>
+            </div>
+        </div>
+        {/* // https://www.fanbolt.com/storage/2021/10/Star-Wars-Quotes.jpg */}
+    </div>;
+}
+
+export const App = App05;
