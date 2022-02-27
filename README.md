@@ -5,7 +5,6 @@ Este proyecto se creó utilizando [Create React App](https://github.com/facebook
 
 
 
-
 (lo que sigue es la documentación propuesta por Create React App)
 ## Available Scripts
 

@@ -1,0 +1,77 @@
+.phrase {
+  font-size: 20px;
+}
+
+.phrase-div {
+  margin-top: 0.6rem;
+  margin-bottom: 0.6rem;
+}
+
+.phraseAuthorBlock {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.phraseAuthorBlock2 {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  margin-bottom: 2rem;
+}
+
+.phraseGroupFrame {
+  width: 50%;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.phraseGroupWithColorChange {
+  display: flex;
+  flex-direction: column;
+  /* align-self: stretch; */
+}
+
+.colorSelectionBar {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.phraseGroupUnderColorChange {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.phraseAuthorInfoFrame {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.image {
+  max-width: 100%;
+  max-height: 300px;
+}
+
+.authorImagesFrame {
+  display: flex;
+  flex-direction: row;
+}
+
+.authorImageSelectorBar {
+  display: flex;
+  flex-direction: column;
+  margin-right: 2rem;
+}
+
+.authorImageSelectorBar > button:not(:last-child) {
+  margin-bottom: 1rem;
+}

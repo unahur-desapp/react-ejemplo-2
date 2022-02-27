@@ -1,115 +1,38 @@
 /*
- * El ejemplo más simple: un div.
- * React acepta una notación que se parece mucho a HTML ... pero no es HTML.
- * Se llama JSX.
+ * AuthorsAndPhrases01: se separa un componente con toda la parte de autores y frases de cada uno.
+ * AuthorsAndPhrases02: se define un componente separado para cada autor.
+ * AuthorsAndPhrases03: se define un componente genérico para mostrar la info relacionada con un autor.
+ * AuthorsAndPhrases04: se definen archivos específicos de CSS para cada component
+ * AuthorsAndPhrases05a: botones de cambio de foto, useState.
+ * AuthorsAndPhrases05b: botones de cambio de color, useState, style, bastante magia de flex.
  * 
- * Un componente devuelve una expresión escrita en este pseudo-HTML.
+ */
+import { AuthorsAndPhrases } from "./components/phrases/AuthorsAndPhrases05a";
+import classes from "./App.module.css";
+
+/*
+ * Este es el sucesor de App05 en AppAutonomous.js.
+ * Se separa la información sobre autores y frases, y se lleva a un componente separado.
  */
 function App01() {
-    return <div>
-        Hola
-    </div>;
-}
-
-/*
- * En lo que se devuelve tien que haber un único elemento principal.
- * Si en lo que quiero devolver no hay eso, se puede usar un Fragment, 
- * que se nota <>...</>.
- * Ya vemos que JSX no es exactamente igual a HTML.
- */
-function App02() {
-    return <>
-        <h1>Frases célebres</h1>
-        <ul>
-            <li>No contaban con mi astucia</li>
-            <li>Se aprovechan de mi nobleza</li>
-            <li>Síganme los buenos</li>
-            <li>Que no panda el cúnico</li>
-        </ul>
-    </>;
-}
-
-/*
- * Puedo referirme a clases de CSS ... pero el atributo se llama className, no class.
- * Otra diferencia entre JSX y HTML.
- * También se puede poner style ... ya vamos a volver sobre esto.
- */
-function App03() {
-    return <div className="frame">
-        <h1 className="title">Frases célebres</h1>
-        <ul>
-            <li className="phrase">No contaban con mi astucia</li>
-            <li className="phrase">Se aprovechan de mi nobleza</li>
-            <li className="phrase">Síganme los buenos</li>
-            <li className="phrase">Que no panda el cúnico</li>
-        </ul>
-    </div>;
-}
-
-/*
- * Ufa, tuve que cambiar uno por uno los li en p ...
- */
-function App04() {
-    return <div className="frame">
-        <h1 className="title">Frases célebres</h1>
-        <ul>
-            <p className="phrase">No contaban con mi astucia</p>
-            <p className="phrase">Se aprovechan de mi nobleza</p>
-            <p className="phrase">Síganme los buenos</p>
-            <p className="phrase">Que no panda el cúnico</p>
-        </ul>
-    </div>;
-}
-
-function App05() {
     return <div className="container">
         <div className="titleFrame">
-            <h1 className="title">Frases célebres</h1>
+            <h1 className="title">Frases célebres - refactorizadas</h1>
         </div>
-        <div className="phraseAuthorBlock">
-            <div className="phraseAuthorInfoFrame">
-                <h2 className='authorTitle'>Chapulín colorado</h2>
-                <div>
-                    <img className="image" src="https://res.cloudinary.com/remezcla/images/f_auto,q_auto/v1639757764/production/El_Chapulin_Colorado_Film/El_Chapulin_Colorado_Film.jpeg?_i=AA"  alt=""/>
-                </div>
-            </div>
-            <div className="phraseGroupFrame">
-                <p className="phrase">¡No contaban con mi astucia!</p>
-                <p className="phrase">Se aprovechan de mi nobleza</p>
-                <p className="phrase">Síganme los buenos</p>
-                <p className="phrase">Que no panda el cúnico</p>
-            </div>
-        </div>
-        <div className="phraseAuthorBlock">
-            <div className="phraseAuthorInfoFrame">
-                <h2 className='authorTitle'>Terminator</h2>
-                <div>
-                    <img className="image" src="https://www.cinematographe.it/wp-content/uploads/2019/11/16hVhjMagAdrMG44A86c3YQ.jpeg"  alt=""/>
-                </div>
-            </div>
-            <div className="phraseGroupFrame">
-                <p className="phrase">I'll be back</p>
-                <p className="phrase">Hasta la vista, baby</p>
-                <p className="phrase">I need your clothes, your boots, and your motorcycle</p>
-                <p className="phrase">You're terminated</p>
-            </div>
-        </div>
-        <div className="phraseAuthorBlock">
-            <div className="phraseAuthorInfoFrame">
-                <h2 className='authorTitle'>Star Wars</h2>
-                <div>
-                    <img className="image" src="https://www.fanbolt.com/storage/2021/10/Star-Wars-Quotes.jpg" alt=""/>
-                </div>
-            </div>
-            <div className="phraseGroupFrame">
-                <p className="phrase">May the Force be with you</p>
-                <p className="phrase">I am your father</p>
-                <p className="phrase">A long time ago in a galaxy far, far away…</p>
-                <p className="phrase">The dark side is in our blood</p>
-            </div>
-        </div>
-        {/* // https://www.fanbolt.com/storage/2021/10/Star-Wars-Quotes.jpg */}
+        <AuthorsAndPhrases />
     </div>;
 }
 
-export const App = App05;
+/*
+ * Idem App01 usando los estilos definidos en App.module.css
+ */
+function App02() {
+    return <div className={classes.container}>
+        <div className={classes.titleFrame}>
+            <h1 className={classes.title}>Frases célebres - refactorizadas</h1>
+        </div>
+        <AuthorsAndPhrases />
+    </div>;
+}
+
+export const App = App02;

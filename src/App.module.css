@@ -1,0 +1,13 @@
+.title {
+    color: darkcyan;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.titleFrame {
+  text-align: center;
+}
+
