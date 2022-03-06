@@ -4,10 +4,11 @@
  * AuthorsAndPhrases03: se define un componente genérico para mostrar la info relacionada con un autor.
  * AuthorsAndPhrases04: se definen archivos específicos de CSS para cada component
  * AuthorsAndPhrases05a: botones de cambio de foto, useState.
- * AuthorsAndPhrases05b: botones de cambio de color, useState, style, bastante magia de flex.
+ * AuthorsAndPhrases05b: botones de cambio de color, useState, style, bastante magia de flex, renderizado condicional.
+ * AuthorsAndPhrases05bAMedioOrganizar: faltan varios cambios necesarios en el CSS, para que se pueda ver el efecto de ir agregándolos.
  * 
  */
-import { AuthorsAndPhrases } from "./components/phrases/AuthorsAndPhrases05a";
+import { AuthorsAndPhrases } from "./components/phrases/AuthorsAndPhrases04";
 import classes from "./App.module.css";
 
 /*

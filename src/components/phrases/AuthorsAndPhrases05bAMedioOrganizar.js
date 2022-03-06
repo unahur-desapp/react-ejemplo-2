@@ -33,8 +33,6 @@ const STAR_WARS_DATA = {
 }
 
 
-const PhrasesBox = PhrasesBoxChangingPhotos;
-
 export function AuthorsAndPhrases() {
     return (<>
         <PhrasesBox title={CHAPULIN_DATA.title} imageSrcs={CHAPULIN_DATA.imageSrcs} phrases={CHAPULIN_DATA.phrases} />
@@ -43,64 +41,43 @@ export function AuthorsAndPhrases() {
     </>);
 }
 
-function PhrasesBoxBeforeButtons(props) {
+function PhrasesBox(props) {
     const { title, imageSrcs, phrases } = props;
+    const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+    const [colorForPhrases, setColorForPhrases] = useState("crimson");
+
+    const colorStyle = { color: colorForPhrases };
+    const noPhrasesStyle = { marginTop: "2rem" };
 
     return <div className={classes.phraseAuthorBlock}>
         <div className={classes.phraseAuthorInfoFrame}>
             <h2>{title} - {phrases.length} frases</h2>
             <div className={classes.authorImagesFrame}>
                 <div className={classes.authorImageSelectorBar}>
-                    <div>Foto 1</div>
-                    <div>Foto 2</div>
+                    <button onClick={() => { setSelectedImageIndex(0) }}>Foto 1</button>
+                    <button onClick={() => { setSelectedImageIndex(1) }}>Foto 2</button>
+                    <div>Foto elegida: {selectedImageIndex + 1}</div>
                 </div>
-                <img className={classes.image2} src={imageSrcs[1]} alt="" />
+                <img className={classes.image2} src={imageSrcs[selectedImageIndex]} alt="" />
             </div>
         </div>
-        <div className={classes.phraseGroupFrame}>
-            {phrases.map(phrase => <p key={phrase} className={classes.phrase}>{phrase}</p>)}
-        </div>
-    </div>
-}
-
-function PhrasesBoxWithButtons(props) {
-    const { title, imageSrcs, phrases } = props;
-
-    return <div className={classes.phraseAuthorBlock}>
-        <div className={classes.phraseAuthorInfoFrame}>
-            <h2>{title} - {phrases.length} frases</h2>
-            <div className={classes.authorImagesFrame}>
-                <div className={classes.authorImageSelectorBar}>
-                    <button onClick={() => {console.log("eligiendo foto 1")}}>Foto 1</button>
-                    <button onClick={() => {console.log("eligiendo foto 2")}}>Foto 2</button>
-                    <div>Foto elegida: 2</div>
-                </div>
-                <img className={classes.image2} src={imageSrcs[1]} alt="" />
+        <div className={`${classes.phraseGroupFrame}`}>
+            <div>
+                <button onClick={() => setColorForPhrases("crimson")} style={{ color: "crimson" }}>crimson</button>
+                <button onClick={() => setColorForPhrases("slateblue")} style={{ color: "slateblue" }}>slateblue</button>
+                <button onClick={() => setColorForPhrases("mediumseagreen")} style={{ color: "mediumseagreen" }}>mediumseagreen</button>
+                <button onClick={() => setColorForPhrases(null)}>No mostrar</button>
             </div>
-        </div>
-        <div className={classes.phraseGroupFrame}>
-            {phrases.map(phrase => <p key={phrase} className={classes.phrase}>{phrase}</p>)}
-        </div>
-    </div>
-}
-
-function PhrasesBoxChangingPhotos(props) {
-    const { title, imageSrcs, phrases } = props;
-    const [ photoIndex, setPhotoIndex ] = useState(0);
-
-    return <div className={classes.phraseAuthorBlock}>
-        <div className={classes.phraseAuthorInfoFrame}>
-            <h2>{title} - {phrases.length} frases</h2>
-            <div className={classes.authorImagesFrame}>
-                <div className={classes.authorImageSelectorBar}>
-                    <button onClick={() => { setPhotoIndex(0) }}>Foto 1</button>
-                    <button onClick={() => { setPhotoIndex(1) }}>Foto 2</button>
-                </div>
-                <img className={classes.image2} src={imageSrcs[photoIndex]} alt="" />
-            </div>
-        </div>
-        <div className={classes.phraseGroupFrame}>
-            {phrases.map(phrase => <p key={phrase} className={classes.phrase}>{phrase}</p>)}
+            {colorForPhrases && <div>
+                {phrases.map(phrase =>
+                    <div key={phrase} className={`${classes.phrase} ${classes["phrase-div"]}`} style={colorStyle}>
+                        {phrase}
+                    </div>
+                )}
+            </div>}
+            {!colorForPhrases && <div className={`${classes.phrase} ${classes["phrase-div"]}`} style={noPhrasesStyle}>
+                ... elegir un color para ver las frases ...
+            </div>}
         </div>
     </div>
 }

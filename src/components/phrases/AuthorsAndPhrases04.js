@@ -33,7 +33,7 @@ export function AuthorsAndPhrases() {
 function PhrasesBox(props) {
     const { title, imageSrc, phrases } = props;
 
-    return <div className="phraseAuthorBlock">
+    return <div className={classes.phraseAuthorBlock}>
         <div className={classes.phraseAuthorInfoFrame}>
             <h2>{title} - {phrases.length} frases</h2>
             <div>

@@ -61,9 +61,14 @@
   max-height: 300px;
 }
 
+.image2 {
+  max-width: 80%;
+}
+
 .authorImagesFrame {
   display: flex;
   flex-direction: row;
+  justify-content: flex-end;
 }
 
 .authorImageSelectorBar {
@@ -72,6 +77,6 @@
   margin-right: 2rem;
 }
 
-.authorImageSelectorBar > button:not(:last-child) {
+.authorImageSelectorBar > :not(:last-child) {
   margin-bottom: 1rem;
 }
