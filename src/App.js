@@ -11,8 +11,10 @@
  * AuthorsAndPhrases08: 
  * 
  */
-import { AuthorsAndPhrases } from "./components/phrases/AuthorsAndPhrases07";
+import { AuthorsAndPhrases } from "./components/authorsAndPhrases/AuthorsAndPhrases07";
 import classes from "./App.module.css";
+
+export const App = App02;
 
 /*
  * Este es el sucesor de App05 en AppAutonomous.js.
@@ -39,4 +41,3 @@ function App02() {
     </div>;
 }
 
-export const App = App02;
