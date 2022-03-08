@@ -7,6 +7,11 @@
   margin-bottom: 0.6rem;
 }
 
+.phrase-tall {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
 .phrase-with-button {
   display: flex;
   flex-direction: row;
@@ -34,6 +39,27 @@
   padding-right: 2rem;
 }
 
+.allPhrasesFrame {
+  display: flex;
+  flex-direction: column;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+.phraseList {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  border-style: solid;
+  border-color: lightseagreen;
+  border-width: 3px;
+  border-radius: 1rem;
+  padding-left: 3rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
 .phraseGroupWithColorChange {
   display: flex;
   flex-direction: column;
@@ -45,6 +71,10 @@
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+}
+
+.expandedColorSelectionBar {
+  justify-content: space-between;
 }
 
 .phraseGroupUnderColorChange {

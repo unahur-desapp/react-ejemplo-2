@@ -10,11 +10,14 @@
  * AuthorsAndPhrases07: borrar frase.
  * AuthorsAndPhrases08: 
  * 
+ * Phrases01: lo mismo que AuthorsAndPhrases05b para una única lista de frases
+ * 
  */
 import { AuthorsAndPhrases } from "./components/authorsAndPhrases/AuthorsAndPhrases07";
 import classes from "./App.module.css";
+import { Phrases } from "./components/justPhrases/JustPhrases01";
 
-export const App = App02;
+export const App = App03;
 
 /*
  * Este es el sucesor de App05 en AppAutonomous.js.
@@ -23,7 +26,7 @@ export const App = App02;
 function App01() {
     return <div className="container">
         <div className="titleFrame">
-            <h1 className="title">Frases célebres - refactorizadas</h1>
+            <h1 className="title">Autores y frases - refactorizadas</h1>
         </div>
         <AuthorsAndPhrases />
     </div>;
@@ -35,9 +38,21 @@ function App01() {
 function App02() {
     return <div className={classes.container}>
         <div className={classes.titleFrame}>
-            <h1 className={classes.title}>Frases célebres - refactorizadas</h1>
+            <h1 className={classes.title}>Autores y frases - refactorizadas</h1>
         </div>
         <AuthorsAndPhrases />
+    </div>;
+}
+
+/*
+ * Muestra una única lista con todas las frases
+ */
+function App03() {
+    return <div className={classes.container}>
+        <div className={classes.titleFrame}>
+            <h1 className={classes.title}>Frases célebres</h1>
+        </div>
+        <Phrases />
     </div>;
 }
 
