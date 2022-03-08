@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import { deletePhrase, getAllPhrases } from '../../services/phrases';
 import classes from './AuthorsAndPhrases.module.css'
 
+export const AuthorsAndPhrases = AuthorsAndPhrasesPreviousVersion;
 const PhrasesBox = PhrasesBoxJustDelete;
 
-export function AuthorsAndPhrases() {
+
+function AuthorsAndPhrasesPreviousVersion() {
     const [authorsAndPhrases, setAuthorsAndPhrases] = useState([]);
 
     useEffect(() => {

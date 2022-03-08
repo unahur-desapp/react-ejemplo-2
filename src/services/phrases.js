@@ -10,7 +10,7 @@ export async function getAllPhrases() {
     return Promise.resolve(response.data);
 }
 
-// agregado para AuthorsAndPhrases08 
+// agregado para AuthorsAndPhrases07
 export async function deletePhrase(authorName, phrase) {
     const response = await axios.delete(`${BACKEND_URL}/authors/${authorName}/phrases/${phrase}`);
     console.log('backend response')

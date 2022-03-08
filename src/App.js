@@ -6,12 +6,12 @@
  * AuthorsAndPhrases05a: botones de cambio de foto, useState.
  * AuthorsAndPhrases05b: botones de cambio de color, useState, style, bastante magia de flex, renderizado condicional.
  * AuthorsAndPhrases05bAMedioOrganizar: faltan varios cambios necesarios en el CSS, para que se pueda ver el efecto de ir agregándolos.
- * AuthorsAndPhrases06: se piden frases a un servicio - implementación real (to do).
- * AuthorsAndPhrases07: se piden frases a un servicio - implementación fake.
- * AuthorsAndPhrases08: borrar frase.
+ * AuthorsAndPhrases06: se piden frases a un servicio - implementación real y fake (trivial switchear).
+ * AuthorsAndPhrases07: borrar frase.
+ * AuthorsAndPhrases08: 
  * 
  */
-import { AuthorsAndPhrases } from "./components/phrases/AuthorsAndPhrases08";
+import { AuthorsAndPhrases } from "./components/phrases/AuthorsAndPhrases07";
 import classes from "./App.module.css";
 
 /*
