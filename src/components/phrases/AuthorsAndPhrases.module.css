@@ -7,6 +7,13 @@
   margin-bottom: 0.6rem;
 }
 
+.phrase-with-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-right: 2rem;
+}
+
 .phraseAuthorBlock {
   display: flex;
   flex-direction: row;
