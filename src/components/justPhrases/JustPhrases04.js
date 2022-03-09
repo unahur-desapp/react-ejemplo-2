@@ -4,7 +4,7 @@ import { addPhrase, deletePhrase, getAllPhrases } from '../../services/phrases';
 import classes from '../authorsAndPhrases/AuthorsAndPhrases.module.css'
 
 export const Phrases = PhrasesSeparated;
-const AddPhrase = AddPhraseFirstVersion;
+const AddPhrase = AddPhraseValidationWhileTyping;
 
 function AddPhraseFirstVersion(props) {
     const { fetchPhrases } = props;
@@ -17,13 +17,14 @@ function AddPhraseFirstVersion(props) {
             Nueva frase
         </span>
         <input value={newPhrase} onChange={event => setNewPhrase(event.target.value)}
-                style={{ width: "500px", marginLeft: "2rem", marginRight: "2rem" }}
+                style={{ width: "40%", marginLeft: "2rem", marginRight: "2rem" }}
         />
         <button onClick={async () => {
             if (newPhrase && newPhrase.length > 5) {
                 await addPhrase(newPhrase);
                 toast.success("Frase agregada");
                 await fetchPhrases();
+                setShowAdd(false);
                 setNewPhrase("");
             } else {
                 toast.error("la frase debe tener al menos 5 caracteres");
@@ -35,6 +36,43 @@ function AddPhraseFirstVersion(props) {
             +
         </div>
     </div>
+}
+
+function AddPhraseValidationWhileTyping(props) {
+    const { fetchPhrases } = props;
+    const [showAdd, setShowAdd] = useState(false);
+    const [newPhrase, setNewPhrase] = useState("");  // qué pasa si se deja undefined ...
+
+    return showAdd
+        ? <div className={classes.addPhraseFrame} onClick={() => console.log("click en zona agregar frase")}>
+            <span>
+                Nueva frase
+            </span>
+            <input value={newPhrase} onChange={event => setNewPhrase(event.target.value)}
+                style={{ width: "40%", marginLeft: "2rem", marginRight: "2rem" }}
+            />
+            <button onClick={async () => {
+                if (newPhrase && newPhrase.length > 5) {
+                    await addPhrase(newPhrase);
+                    toast.success("Frase agregada");
+                    await fetchPhrases();
+                    setNewPhrase("");
+                } else {
+                    toast.error("la frase debe tener al menos 5 caracteres");
+                }
+            }}>Agregar</button>
+            <div style={{ flexGrow: 1 }} />
+            <div className={classes.plusButton} onClick={() => {
+                setShowAdd(false); setNewPhrase("");
+            }}>
+                -
+            </div>
+        </div>
+        : <div className={classes.plusButtonFrame}>
+            <div className={classes.plusButton} onClick={() => setShowAdd(true)}>
+                +
+            </div>
+        </div>
 }
 
 function PhrasesWithAddInSameComponent() {

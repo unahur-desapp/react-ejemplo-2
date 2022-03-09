@@ -66,9 +66,13 @@
   border-width: 3px;
   border-radius: 1rem;
   padding-left: 3rem;
+  padding-right: 2rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
   margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .phraseGroupWithColorChange {
