@@ -10,12 +10,18 @@
  * AuthorsAndPhrases07: borrar frase.
  * AuthorsAndPhrases08: 
  * 
- * Phrases01: lo mismo que AuthorsAndPhrases05b para una única lista de frases
+ * JustPhrases01: lo mismo que AuthorsAndPhrases05b para una única lista de frases
+ * JustPhrases02: se piden frases a un servicio - implementación real y fake (trivial switchear).
+ * JustPhrases03: borrar frase.
+ * JustPhrases04: agregar frase.
  * 
  */
 import { AuthorsAndPhrases } from "./components/authorsAndPhrases/AuthorsAndPhrases07";
 import classes from "./App.module.css";
-import { Phrases } from "./components/justPhrases/JustPhrases01";
+import { Phrases } from "./components/justPhrases/JustPhrases04";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import "./toast.css";
 
 export const App = App03;
 
@@ -48,11 +54,14 @@ function App02() {
  * Muestra una única lista con todas las frases
  */
 function App03() {
-    return <div className={classes.container}>
-        <div className={classes.titleFrame}>
-            <h1 className={classes.title}>Frases célebres</h1>
+    return <>
+        <ToastContainer toastClassName="react_toastify_toast_wrapper" autoClose={1200} hideProgressBar />
+        <div className={classes.container}>
+            <div className={classes.titleFrame}>
+                <h1 className={classes.title}>Frases célebres</h1>
+            </div>
+            <Phrases />
         </div>
-        <Phrases />
-    </div>;
+    </>;
 }
 

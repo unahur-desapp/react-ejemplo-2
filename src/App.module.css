@@ -11,3 +11,7 @@
   text-align: center;
 }
 
+.toast {
+  background-color: lightyellow;
+  color: red;
+}

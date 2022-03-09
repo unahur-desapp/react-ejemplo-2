@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAllPhrases } from '../../services/phrases';
+import { getAllPhrases } from '../../services/authorsAndPhrases';
 import classes from './AuthorsAndPhrases.module.css'
 
 export function AuthorsAndPhrases() {

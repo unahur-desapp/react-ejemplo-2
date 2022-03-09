@@ -1,17 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { getAllPhrases } from '../../services/phrases';
 import classes from '../authorsAndPhrases/AuthorsAndPhrases.module.css'
 
-const ALL_PHRASES = ["¡No contaban con mi astucia!", "Se aprovechan de mi nobleza",
-        "Síganme los buenos", "Que no panda el cúnico", "Todos mis movimientos están fríamente calculados",
-        "I'll be back", "Hasta la vista, baby",
-        "I need your clothes, your boots, and your motorcycle", "You're terminated",
-        "May the Force be with you", "I am your father",
-        "A long time ago in a galaxy far, far away...", "The dark side is in our blood"];
 
 export function Phrases() {
     const [colorForPhrases, setColorForPhrases] = useState("crimson");
+    const [phrases, setPhrases] = useState([]);
 
-    const phrases = ALL_PHRASES;
+    useEffect(() => {
+        const fetchPhrases = async () => {
+            const obtainedData = await getAllPhrases();
+            setPhrases(obtainedData);
+        }
+        fetchPhrases();
+    }, []);
 
     return <div className={classes.allPhrasesFrame}>
         <div className={`${classes.colorSelectionBar} ${classes.expandedColorSelectionBar}`}>

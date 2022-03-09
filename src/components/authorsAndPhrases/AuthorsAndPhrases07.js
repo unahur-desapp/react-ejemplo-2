@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { deletePhrase, getAllPhrases } from '../../services/phrases';
+import { deletePhrase, getAllPhrases } from '../../services/authorsAndPhrases';
 import classes from './AuthorsAndPhrases.module.css'
 
 export const AuthorsAndPhrases = AuthorsAndPhrasesWithCallback;
@@ -97,14 +97,8 @@ function PhrasesBoxDeleteBEAndRefetch(props) {
     const { title, imageSrcs, phrases, updateData } = props;
 
     // Hay que definirlo como state para poder modificar el valor que viene como props
-    const [phrasesForRender, setPhrasesForRender] = useState(phrases);
     const [photoIndex, setPhotoIndex] = useState(0);
     const [colorForPhrases, setColorForPhrases] = useState("crimson");
-
-    const doDeletePhrase = async (authorTitle, phrase) => {
-        await deletePhrase(authorTitle, phrase);
-
-    };
 
     return <div className={classes.phraseAuthorBlock2}>
         <div className={classes.phraseAuthorInfoFrame}>
