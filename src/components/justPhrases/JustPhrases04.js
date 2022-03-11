@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { addPhrase, deletePhrase, getAllPhrases } from '../../services/phrases';
 import classes from '../authorsAndPhrases/AuthorsAndPhrases.module.css'
 
-export const Phrases = PhrasesSeparated;
+export const Phrases = PhrasesSeparated2;
 const AddPhrase = AddPhraseValidationAfterFirstKeystroke;
 
 function AddPhraseFirstVersion(props) {
@@ -98,6 +98,7 @@ function AddPhraseValidationWhileTyping(props) {
  * - no validar hasta que se toque un caracter
  * - No repetir lógica de validación
  * - deshabilitar el botón si es inválido
+ * - renderizar el + y el - como botones, para que ande bien el tabOrder
  */
 function AddPhraseValidationAfterFirstKeystroke(props) {
     const { fetchPhrases } = props;
@@ -140,11 +141,11 @@ function AddPhraseValidationAfterFirstKeystroke(props) {
                     }
                 }}>Agregar</button>
                 <div style={{ flexGrow: 1 }} />
-                <div className={classes.plusButton} onClick={() => {
+                <button className={classes.plusButton} onClick={() => {
                     setShowAdd(false); setNewPhrase(""); setTouched(false);
                 }}>
                     -
-                </div>
+                </button>
             </div>
             {touched && validationMessage && <div className={classes.addPhraseValidation}>
                 {validationMessage}
@@ -152,9 +153,9 @@ function AddPhraseValidationAfterFirstKeystroke(props) {
 
         </div>
         : <div className={classes.plusButtonFrame}>
-            <div className={classes.plusButton} onClick={() => setShowAdd(true)}>
+            <button className={classes.plusButton} onClick={() => setShowAdd(true)}>
                 +
-            </div>
+            </button>
         </div>
 }
 
@@ -241,6 +242,53 @@ function PhrasesSeparated() {
             <button key="no-mostrar" onClick={() => setColorForPhrases(null)}>No mostrar</button>
         </div>
         <AddPhrase fetchPhrases={fetchPhrases} />
+        {colorForPhrases && <div className={classes.phraseList}>
+            {phrases.map(phrase => (
+                <div key={phrase}
+                    className={`${classes.phrase} ${classes["phrase-tall"]} ${classes["phrase-with-button"]}`}
+                    style={{ color: colorForPhrases }}
+                >
+                    <div>{phrase}</div>
+                    <div>
+                        <button onClick={async () => {
+                            await deletePhrase(phrase);
+                            await fetchPhrases();
+                        }}>Eliminar</button>
+                    </div>
+                </div>
+            ))}
+        </div>}
+        {!colorForPhrases && <div style={{ marginTop: "2rem" }}>
+            <div className={`${classes.phrase} ${classes["phrase-tall"]}`}>
+                ... elegir un color para ver las frases ...
+            </div>
+        </div>}
+    </div>
+}
+
+/*
+ * No muestra el AddPhrase si no se están viendo las frases
+ */
+function PhrasesSeparated2() {
+    const [colorForPhrases, setColorForPhrases] = useState("crimson");
+    const [phrases, setPhrases] = useState([]);
+
+    const fetchPhrases = async () => {
+        const obtainedData = await getAllPhrases();
+        setPhrases(obtainedData);
+    }
+
+    useEffect(() => {
+        fetchPhrases();
+    }, []);
+
+    return <div className={classes.allPhrasesFrame}>
+        <div className={`${classes.colorSelectionBar} ${classes.expandedColorSelectionBar}`}>
+            {["crimson", "slateblue", "mediumseagreen"].map(
+                color => <button key={color} onClick={() => setColorForPhrases(color)} style={{ color }}>{color}</button>)}
+            <button key="no-mostrar" onClick={() => setColorForPhrases(null)}>No mostrar</button>
+        </div>
+        {colorForPhrases && <AddPhrase fetchPhrases={fetchPhrases} />}
         {colorForPhrases && <div className={classes.phraseList}>
             {phrases.map(phrase => (
                 <div key={phrase}

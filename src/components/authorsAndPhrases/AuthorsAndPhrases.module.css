@@ -172,4 +172,5 @@
   padding-top: auto;
   padding-bottom: auto;
   border-radius: .5rem;
+  border-style: none;    /* para anular el borde que le pone el elemento button */
 }
