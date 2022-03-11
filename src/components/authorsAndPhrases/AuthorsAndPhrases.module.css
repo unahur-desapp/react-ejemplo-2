@@ -75,6 +75,31 @@
   align-items: center;
 }
 
+.addPhraseFrameWithValidation {
+  border-style: solid;
+  border-color: lightseagreen;
+  border-width: 3px;
+  border-radius: 1rem;
+  padding-left: 3rem;
+  padding-right: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.addPhraseLine {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.addPhraseValidation {
+  color: crimson;
+  margin-top: .5rem;
+}
+
 .phraseGroupWithColorChange {
   display: flex;
   flex-direction: column;

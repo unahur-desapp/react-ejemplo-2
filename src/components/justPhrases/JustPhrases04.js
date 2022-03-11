@@ -4,7 +4,7 @@ import { addPhrase, deletePhrase, getAllPhrases } from '../../services/phrases';
 import classes from '../authorsAndPhrases/AuthorsAndPhrases.module.css'
 
 export const Phrases = PhrasesSeparated;
-const AddPhrase = AddPhraseValidationWhileTyping;
+const AddPhrase = AddPhraseValidationAfterFirstKeystroke;
 
 function AddPhraseFirstVersion(props) {
     const { fetchPhrases } = props;
@@ -43,30 +43,48 @@ function AddPhraseValidationWhileTyping(props) {
     const [showAdd, setShowAdd] = useState(false);
     const [newPhrase, setNewPhrase] = useState("");  // qué pasa si se deja undefined ...
 
+    // Cómo saber si una letra es mayúscula - todo un tema
+    // cfr https://stackoverflow.com/questions/1027224/how-can-i-test-if-a-letter-in-a-string-is-uppercase-or-lowercase-using-javascrip, 
+    // ver la respuesta de KooiInc, hay muchas otras
+    //
+    // const isProperStartChar = char => (char >= 'A' && char <= 'Z') || char === '¿' || char === '¡' || (char >= '0' && char <= '9');
+    // const isProperStartChar = char => /([A-Z]|[0-9]|¿|!)/.test(char);
+    const isProperStartChar = char => /([A-Z]|[0-9]|¿|!|[\u0080-\u024F])/.test(char) && char.toUpperCase() === char;
+
+    const validationMessage = newPhrase.length < 5 
+        ? "La frase debe tener al menos 5 caracteres" 
+        : newPhrase.length > 0 && !isProperStartChar(newPhrase[0]) ? "La frase debe empezar con mayúscula, número o signo de apertura ¿ ¡" : null;
+
     return showAdd
-        ? <div className={classes.addPhraseFrame} onClick={() => console.log("click en zona agregar frase")}>
-            <span>
-                Nueva frase
-            </span>
-            <input value={newPhrase} onChange={event => setNewPhrase(event.target.value)}
-                style={{ width: "40%", marginLeft: "2rem", marginRight: "2rem" }}
-            />
-            <button onClick={async () => {
-                if (newPhrase && newPhrase.length > 5) {
-                    await addPhrase(newPhrase);
-                    toast.success("Frase agregada");
-                    await fetchPhrases();
-                    setNewPhrase("");
-                } else {
-                    toast.error("la frase debe tener al menos 5 caracteres");
-                }
-            }}>Agregar</button>
-            <div style={{ flexGrow: 1 }} />
-            <div className={classes.plusButton} onClick={() => {
-                setShowAdd(false); setNewPhrase("");
-            }}>
-                -
+        ? <div className={classes.addPhraseFrameWithValidation}>
+            <div className={classes.addPhraseLine}>
+                <span>
+                    Nueva frase
+                </span>
+                <input value={newPhrase} onChange={event => setNewPhrase(event.target.value)}
+                    style={{ width: "40%", marginLeft: "2rem", marginRight: "2rem" }}
+                />
+                <button onClick={async () => {
+                    if (newPhrase.length > 5) {
+                        await addPhrase(newPhrase);
+                        toast.success("Frase agregada");
+                        await fetchPhrases();
+                        setNewPhrase("");
+                    } else {
+                        toast.error("La frase debe tener al menos 5 caracteres");
+                    }
+                }}>Agregar</button>
+                <div style={{ flexGrow: 1 }} />
+                <div className={classes.plusButton} onClick={() => {
+                    setShowAdd(false); setNewPhrase("");
+                }}>
+                    -
+                </div>
             </div>
+            {validationMessage && <div className={classes.addPhraseValidation}>
+                {validationMessage}
+            </div>}
+            
         </div>
         : <div className={classes.plusButtonFrame}>
             <div className={classes.plusButton} onClick={() => setShowAdd(true)}>
@@ -74,6 +92,72 @@ function AddPhraseValidationWhileTyping(props) {
             </div>
         </div>
 }
+
+/*
+ * En rigor varias cosas
+ * - no validar hasta que se toque un caracter
+ * - No repetir lógica de validación
+ * - deshabilitar el botón si es inválido
+ */
+function AddPhraseValidationAfterFirstKeystroke(props) {
+    const { fetchPhrases } = props;
+    const [showAdd, setShowAdd] = useState(false);
+    const [newPhrase, setNewPhrase] = useState(""); 
+    const [touched, setTouched] = useState(false);  
+
+    // Cómo saber si una letra es mayúscula - todo un tema
+    // cfr https://stackoverflow.com/questions/1027224/how-can-i-test-if-a-letter-in-a-string-is-uppercase-or-lowercase-using-javascrip, 
+    // ver la respuesta de KooiInc, hay muchas otras
+    //
+    // const isProperStartChar = char => (char >= 'A' && char <= 'Z') || char === '¿' || char === '¡' || (char >= '0' && char <= '9');
+    // const isProperStartChar = char => /([A-Z]|[0-9]|¿|!)/.test(char);
+    const isProperStartChar = char => /([A-Z]|[0-9]|¿|!|[\u0080-\u024F])/.test(char) && char.toUpperCase() === char;
+
+    const validationMessage = newPhrase.length < 5
+        ? "La frase debe tener al menos 5 caracteres"
+        : newPhrase.length > 0 && !isProperStartChar(newPhrase[0]) ? "La frase debe empezar con mayúscula, número o signo de apertura ¿ ¡" : null;
+
+    return showAdd
+        ? <div className={classes.addPhraseFrameWithValidation}>
+            <div className={classes.addPhraseLine}>
+                <span>
+                    Nueva frase
+                </span>
+                <input value={newPhrase} onChange={event => {
+                    setNewPhrase(event.target.value);
+                    setTouched(true);
+                }}
+                    style={{ width: "40%", marginLeft: "2rem", marginRight: "2rem" }}
+                />
+                <button disabled={!!validationMessage} onClick={async () => {
+                    if (newPhrase.length > 5) {
+                        await addPhrase(newPhrase);
+                        toast.success("Frase agregada");
+                        await fetchPhrases();
+                        setNewPhrase("");
+                    } else {
+                        toast.error("La frase debe tener al menos 5 caracteres");
+                    }
+                }}>Agregar</button>
+                <div style={{ flexGrow: 1 }} />
+                <div className={classes.plusButton} onClick={() => {
+                    setShowAdd(false); setNewPhrase(""); setTouched(false);
+                }}>
+                    -
+                </div>
+            </div>
+            {touched && validationMessage && <div className={classes.addPhraseValidation}>
+                {validationMessage}
+            </div>}
+
+        </div>
+        : <div className={classes.plusButtonFrame}>
+            <div className={classes.plusButton} onClick={() => setShowAdd(true)}>
+                +
+            </div>
+        </div>
+}
+
 
 function PhrasesWithAddInSameComponent() {
     const [colorForPhrases, setColorForPhrases] = useState("crimson");
