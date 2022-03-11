@@ -3,7 +3,24 @@ import { toast } from 'react-toastify';
 import { addPhrase, deletePhrase, getAllPhrases } from '../../services/phrases';
 import classes from '../authorsAndPhrases/AuthorsAndPhrases.module.css'
 
+
+// PhrasesWithAddInSameComponent - versión sencilla, toda en un único componente. El form para nueva frase aparece fijo.
+// PhrasesSeparated - se separa AddPhrase en un componente aparte, hay que mandar fetchPhrases por prop
+// PhrasesSeparated2 - renderizado condicional a que muestre las frases (esto para meterlo más adelante)
 export const Phrases = PhrasesSeparated2;
+
+// AddPhraseFirstVersion - Botón + para renderización condicional del form para nueva frase, se esconde cuando se acepta la nueva frase.
+//      - validación cuando se le da Enter, uso de toast
+// AddPhraseValidationWhileTyping - varias cosas
+//      - validación mientras se tipea (debate controlled vs uncontrolled), aparece en un div aparte
+//      - agregar validación "empieza con mayúscula" - ¿cómo saber que empieza con mayúscula? - regexp
+//      - se agrega botón - para cerrar el form para agregar frase, al agregar una frase no se cierra. Ver uso de flex-grow para empujar a los costados.
+// AddPhraseValidationAfterFirstKeystroke - varias cosas
+//      - no validar hasta que se toque un caracter
+//      - No repetir lógica de validación
+//      - deshabilitar el botón si es inválido
+//      - renderizar el + y el - como botones, para que ande bien el tabOrder
+
 const AddPhrase = AddPhraseValidationAfterFirstKeystroke;
 
 function AddPhraseFirstVersion(props) {
@@ -24,8 +41,8 @@ function AddPhraseFirstVersion(props) {
                 await addPhrase(newPhrase);
                 toast.success("Frase agregada");
                 await fetchPhrases();
-                setShowAdd(false);
                 setNewPhrase("");
+                // setShowAdd(false);
             } else {
                 toast.error("la frase debe tener al menos 5 caracteres");
             }
@@ -106,12 +123,6 @@ function AddPhraseValidationAfterFirstKeystroke(props) {
     const [newPhrase, setNewPhrase] = useState(""); 
     const [touched, setTouched] = useState(false);  
 
-    // Cómo saber si una letra es mayúscula - todo un tema
-    // cfr https://stackoverflow.com/questions/1027224/how-can-i-test-if-a-letter-in-a-string-is-uppercase-or-lowercase-using-javascrip, 
-    // ver la respuesta de KooiInc, hay muchas otras
-    //
-    // const isProperStartChar = char => (char >= 'A' && char <= 'Z') || char === '¿' || char === '¡' || (char >= '0' && char <= '9');
-    // const isProperStartChar = char => /([A-Z]|[0-9]|¿|!)/.test(char);
     const isProperStartChar = char => /([A-Z]|[0-9]|¿|!|[\u0080-\u024F])/.test(char) && char.toUpperCase() === char;
 
     const validationMessage = newPhrase.length < 5
@@ -131,13 +142,13 @@ function AddPhraseValidationAfterFirstKeystroke(props) {
                     style={{ width: "40%", marginLeft: "2rem", marginRight: "2rem" }}
                 />
                 <button disabled={!!validationMessage} onClick={async () => {
-                    if (newPhrase.length > 5) {
+                    if (!validationMessage) {
                         await addPhrase(newPhrase);
                         toast.success("Frase agregada");
                         await fetchPhrases();
                         setNewPhrase("");
                     } else {
-                        toast.error("La frase debe tener al menos 5 caracteres");
+                        toast.error(validationMessage);
                     }
                 }}>Agregar</button>
                 <div style={{ flexGrow: 1 }} />
