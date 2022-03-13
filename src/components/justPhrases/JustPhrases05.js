@@ -1,24 +1,29 @@
-import { useEffect, useState } from 'react';
-import { addPhrase, deletePhrase, getAllPhrases } from '../../services/phrases';
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { addPhrase, deletePhrase, getAllPhrases } from "../../services/phrases";
 import classes from '../authorsAndPhrases/AuthorsAndPhrases.module.css'
-
 
 export function Phrases() {
     const [colorForPhrases, setColorForPhrases] = useState("crimson");
     const [phrases, setPhrases] = useState(null);
-    const [newPhrase, setNewPhrase] = useState("");  // qué pasa si se deja undefined ...
+    const [newPhrase, setNewPhrase] = useState("");
+
+    console.log('---------------------- ejecutando Phrases')
+    console.log(phrases)
 
     const fetchPhrases = async () => {
-        const obtainedData = await getAllPhrases();
-        setPhrases(obtainedData);
+        const obtainedPhrases = await getAllPhrases();
+        console.log("--------------------  se obtuvieron estas frases")
+        console.log(obtainedPhrases);
+        setPhrases(obtainedPhrases);
     }
-
     useEffect(() => {
-        fetchPhrases();
+        setTimeout(async () => {
+            fetchPhrases();
+        }, 200);
     }, []);
 
     return <div className={classes.allPhrasesFrame}>
-        {/* color change buttons */}
         <div className={`${classes.colorSelectionBar} ${classes.expandedColorSelectionBar}`}>
             {["crimson", "slateblue", "mediumseagreen"].map(
                 color => <button key={color} onClick={() => setColorForPhrases(color)} style={{ color }}>{color}</button>)}
@@ -30,24 +35,27 @@ export function Phrases() {
             <span>
                 Nueva frase
             </span>
-            <input value={newPhrase} onChange={event => setNewPhrase(event.target.value)}
-                style={{ width: "50%", marginLeft: "2rem", marginRight: "2rem" }}
-            />
+            <input style={{ width: "50%", marginLeft: "2rem", marginRight: "2rem" }} value={newPhrase} onChange={event => setNewPhrase(event.target.value)} />
             <button onClick={async () => {
-                await addPhrase(newPhrase);
-                await fetchPhrases();
-                setNewPhrase("");
+                if (newPhrase.length < 5) {
+                    toast.error("La frase tiene que tener al menos 5 caracteres.");
+                } else if (!(newPhrase[0] !== newPhrase[0].toLowerCase() || ["0123456789¿!"].includes(newPhrase[0]))) {
+                    toast.error("La frase debe empezar con mayúscula, dígito o signo que abre (¿!).");
+                } else {
+                    toast.success("Frase agregada.");
+                    await addPhrase(newPhrase);
+                    await fetchPhrases();
+                    setNewPhrase("");
+                }
             }}>Agregar</button>
         </div>
 
-        {/* "loading ..." message */}
+
         {!phrases && <div style={{ marginTop: "2rem" }}>
             <div className={`${classes.phrase} ${classes["phrase-tall"]}`}>
                 ... cargando frases ...
             </div>
         </div>}
-
-        {/* show phrases */}
         {phrases && colorForPhrases && <div className={classes.phraseList}>
             {phrases.map(phrase => (
                 <div key={phrase}
@@ -56,7 +64,7 @@ export function Phrases() {
                 >
                     <div>{phrase}</div>
                     <div>
-                        <button onClick={async () => { 
+                        <button onClick={async () => {
                             await deletePhrase(phrase);
                             await fetchPhrases();
                         }}>Eliminar</button>
@@ -71,5 +79,3 @@ export function Phrases() {
         </div>}
     </div>
 }
-
-

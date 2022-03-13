@@ -6,7 +6,7 @@ export const Phrases = PhrasesDeleteAndRefresh;
 
 function PhrasesJustDelete() {
     const [colorForPhrases, setColorForPhrases] = useState("crimson");
-    const [phrases, setPhrases] = useState([]);
+    const [phrases, setPhrases] = useState(null);
 
     useEffect(() => {
         const fetchPhrases = async () => {
@@ -22,7 +22,12 @@ function PhrasesJustDelete() {
                 color => <button key={color} onClick={() => setColorForPhrases(color)} style={{ color }}>{color}</button>)}
             <button key="no-mostrar" onClick={() => setColorForPhrases(null)}>No mostrar</button>
         </div>
-        {colorForPhrases && <div className={classes.phraseList}>
+        {!phrases && <div style={{ marginTop: "2rem" }}>
+            <div className={`${classes.phrase} ${classes["phrase-tall"]}`}>
+                ... cargando frases ...
+            </div>
+        </div>}
+        {phrases && colorForPhrases && <div className={classes.phraseList}>
             {phrases.map(phrase => (
                 <div key={phrase}
                     className={`${classes.phrase} ${classes["phrase-tall"]} ${classes["phrase-with-button"]}`}
@@ -35,7 +40,7 @@ function PhrasesJustDelete() {
                 </div>
             ))}
         </div>}
-        {!colorForPhrases && <div style={{ marginTop: "2rem" }}>
+        {phrases && !colorForPhrases && <div style={{ marginTop: "2rem" }}>
             <div className={`${classes.phrase} ${classes["phrase-tall"]}`}>
                 ... elegir un color para ver las frases ...
             </div>

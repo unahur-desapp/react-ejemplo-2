@@ -13,15 +13,15 @@
  * JustPhrases01: lo mismo que AuthorsAndPhrases05b para una única lista de frases
  * JustPhrases02: se piden frases a un servicio - implementación real y fake (trivial switchear).
  * JustPhrases03: borrar frase.
- * JustPhrases04: agregar frase.
+ * JustPhrases04a: agregar frase - con la secuencia didáctica antes de organizar el discurso.
+ * JustPhrases04: agregar frase - componente único sin validación.
+ * JustPhrases05: agregar frase - componente único, validación con toast.
+ * JustPhrases06: agregar frase - componente único, validación mientras se tipea, botón deshabilitado, touched.
  * 
  */
 import { AuthorsAndPhrases } from "./components/authorsAndPhrases/AuthorsAndPhrases07";
 import classes from "./App.module.css";
-import { Phrases } from "./components/justPhrases/JustPhrases04";
-import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-import "./toast.css";
+import { Phrases } from "./components/justPhrases/JustPhrases06";
 
 export const App = App03;
 
@@ -55,7 +55,6 @@ function App02() {
  */
 function App03() {
     return <>
-        <ToastContainer toastClassName="react_toastify_toast_wrapper" autoClose={1200} hideProgressBar />
         <div className={classes.container}>
             <div className={classes.titleFrame}>
                 <h1 className={classes.title}>Frases célebres</h1>

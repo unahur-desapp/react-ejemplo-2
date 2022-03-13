@@ -1,3 +1,6 @@
 .react_toastify_toast_wrapper {
-  background-color: lightyellow;
+  background-color: azure;
+  border-style: solid;
+  border-width: 3px;
+  border-color: darkgreen;
 }
