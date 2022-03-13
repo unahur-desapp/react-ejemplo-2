@@ -8,7 +8,6 @@
  * AuthorsAndPhrases05bAMedioOrganizar: faltan varios cambios necesarios en el CSS, para que se pueda ver el efecto de ir agregándolos.
  * AuthorsAndPhrases06: se piden frases a un servicio - implementación real y fake (trivial switchear).
  * AuthorsAndPhrases07: borrar frase.
- * AuthorsAndPhrases08: 
  * 
  * JustPhrases01: lo mismo que AuthorsAndPhrases05b para una única lista de frases
  * JustPhrases02: se piden frases a un servicio - implementación real y fake (trivial switchear).
@@ -18,11 +17,12 @@
  * JustPhrases05: agregar frase - componente único, validación con toast.
  * JustPhrases06: agregar frase - componente único, validación mientras se tipea, botón deshabilitado, touched.
  * JustPhrases07: agregar frase - componentes separados.
+ * JustPhrases08: agregar frase - componentes separados, AddPhrase comprimido o expandido.
  * 
  */
 import { AuthorsAndPhrases } from "./components/authorsAndPhrases/AuthorsAndPhrases07";
 import classes from "./App.module.css";
-import { Phrases } from "./components/justPhrases/JustPhrases07";
+import { Phrases } from "./components/justPhrases/JustPhrases08";
 
 export const App = App03;
 
