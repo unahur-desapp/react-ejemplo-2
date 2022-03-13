@@ -17,11 +17,12 @@
  * JustPhrases04: agregar frase - componente único sin validación.
  * JustPhrases05: agregar frase - componente único, validación con toast.
  * JustPhrases06: agregar frase - componente único, validación mientras se tipea, botón deshabilitado, touched.
+ * JustPhrases07: agregar frase - componentes separados.
  * 
  */
 import { AuthorsAndPhrases } from "./components/authorsAndPhrases/AuthorsAndPhrases07";
 import classes from "./App.module.css";
-import { Phrases } from "./components/justPhrases/JustPhrases06";
+import { Phrases } from "./components/justPhrases/JustPhrases07";
 
 export const App = App03;
 
