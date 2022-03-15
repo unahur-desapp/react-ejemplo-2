@@ -19,12 +19,16 @@
  * JustPhrases07: agregar frase - componentes separados.
  * JustPhrases08: agregar frase - componentes separados, AddPhrase comprimido o expandido.
  * 
+ * JustPhrasesMui01: primeras pruebas con MUI.
+ * 
  */
-import { AuthorsAndPhrases } from "./components/authorsAndPhrases/AuthorsAndPhrases07";
+import { AuthorsAndPhrases } from "./components/authorsAndPhrases/AuthorsAndPhrases05ab";
 import classes from "./App.module.css";
-import { Phrases } from "./components/justPhrases/JustPhrases08";
+import { Phrases } from "./components/justPhrasesMui/JustPhrasesMui01";
+import { Route, Routes } from "react-router-dom";
+import { Header } from "./components/scaffold/Header";
 
-export const App = App03;
+export const App = App04;
 
 /*
  * Este es el sucesor de App05 en AppAutonomous.js.
@@ -65,3 +69,42 @@ function App03() {
     </>;
 }
 
+/*
+ * Barra superior con opciones, autores y frases o frases
+ */
+function App04() {
+    return <div style={{ display: "flex", flexDirection: "column" }}>
+        <Header />
+        <div className={classes.container}>
+            {/* <Phrases /> */}
+            <AppRouter />
+        </div>
+    </div>;
+}
+
+
+function AppRouter() {
+    return <Routes>
+        <Route path="/autores-y-frases" element={
+            <>
+                <div className={classes.titleFrame}>
+                    <h1 className={classes.title}>Autores y frases - refactorizadas</h1>
+                </div>
+                <AuthorsAndPhrases />
+            </>
+        } />
+        <Route path="/frases" element={
+            <>
+                <div className={classes.titleFrame}>
+                    <h1 className={classes.title}>Frases célebres</h1>
+                </div>
+                <Phrases />
+            </>
+        } />
+        <Route path="*" element={
+                <div style={{ textAlign: "center", marginTop: "3rem" }}>
+                    Elegir una opción en la barra superior
+                </div>
+        } />
+    </Routes>
+}

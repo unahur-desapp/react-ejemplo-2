@@ -6,11 +6,16 @@ import './index.css';
 import './indexPruebaFlexbox.css';
 import 'react-toastify/dist/ReactToastify.css';
 import "./toast.css";
+import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from '@emotion/react';
+import { customMuiTheme } from './muiTheme';
 
 ReactDOM.render(
-    <>
-        <ToastContainer toastClassName="react_toastify_toast_wrapper" autoClose={1500} hideProgressBar position="top-left" />
-        <App />
-    </>,
+    <ThemeProvider theme={customMuiTheme}>
+        <BrowserRouter>
+            <ToastContainer toastClassName="react_toastify_toast_wrapper" autoClose={1500} hideProgressBar position="top-left" />
+            <App />
+        </BrowserRouter>
+    </ThemeProvider>,
     document.getElementById('root')
 );
