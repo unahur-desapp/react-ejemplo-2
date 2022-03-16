@@ -19,12 +19,15 @@
  * JustPhrases07: agregar frase - componentes separados.
  * JustPhrases08: agregar frase - componentes separados, AddPhrase comprimido o expandido.
  * 
- * JustPhrasesMui01: primeras pruebas con MUI.
+ * JustPhrasesMui01: Button, TextField, Typography, uso de sx, custom mui theme, un uso de Stack, algo del color system.
+ * JustPhrasesMui02: todos los flexbox como Stack.
+ * JustPhrasesMui03: se saca el resto del CSS.
+ * JustPhrasesMui04: el AddPhrases se va a un Modal.
  * 
  */
 import { AuthorsAndPhrases } from "./components/authorsAndPhrases/AuthorsAndPhrases05ab";
 import classes from "./App.module.css";
-import { Phrases } from "./components/justPhrasesMui/JustPhrasesMui01";
+import { Phrases } from "./components/justPhrasesMui/JustPhrasesMui02";
 import { Route, Routes } from "react-router-dom";
 import { Header } from "./components/scaffold/Header";
 

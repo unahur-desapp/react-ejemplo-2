@@ -1,4 +1,5 @@
-import { Button, Stack } from "@mui/material";
+import { Button, Stack, TextField, Typography } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { addPhrase, deletePhrase, getAllPhrases } from "../../services/phrases";
@@ -27,7 +28,7 @@ export function Phrases() {
         }, 200);
     }, []);
 
-    return <Stack className={classes.allPhrasesFrame}>
+    return <Stack direction="column" className={classes.allPhrasesFrame}>
         <div className={`${classes.colorSelectionBar} ${classes.expandedColorSelectionBar}`}>
             {["crimson", "slateblue", "mediumseagreen"].map(
                 color => <Button variant="contained" color="relaxed" size={isShortScreen ? "small" : "medium"}
@@ -38,30 +39,30 @@ export function Phrases() {
                     {color}
                 </Button>
             )}
-            <Button key="no-mostrar" onClick={() => setColorForPhrases(null)} variant="contained" color="relaxed">No mostrar</Button>
+            <Button key="no-mostrar" onClick={() => setColorForPhrases(null)} variant="contained" color="relaxed">
+                No mostrar
+            </Button>
         </div>
 
         {/* add phrase */}
         <AddPhrase onAdd={fetchPhrases} />
 
         {!phrases && <div style={{ marginTop: "2rem" }}>
-            <div className={`${classes.phrase} ${classes["phrase-tall"]}`}>
+            <Typography variant="bigText" className={classes["phrase-tall"]}>
                 ... cargando frases ...
-            </div>
+            </Typography>
         </div>}
         {phrases && colorForPhrases && <div className={classes.phraseList}>
             {phrases.map(phrase => (
                 <div key={phrase}
-                    className={`${classes.phrase} ${classes["phrase-tall"]} ${classes["phrase-with-button"]}`}
+                    className={`${classes["phrase-tall"]} ${classes["phrase-with-button"]}`}
                     style={{ color: colorForPhrases }}
                 >
-                    <div>{phrase}</div>
-                    <div>
-                        <button onClick={async () => {
-                            await deletePhrase(phrase);
-                            await fetchPhrases();
-                        }}>Eliminar</button>
-                    </div>
+                    <Typography variant="bigText">{phrase}</Typography>
+                    <Button variant="contained" color="relaxed" size="small" endIcon={<DeleteIcon />} onClick={async () => {
+                        await deletePhrase(phrase);
+                        await fetchPhrases();
+                    }}>Eliminar</Button>
                 </div>
             ))}
         </div>}
@@ -89,27 +90,28 @@ function AddPhrase(props) {
         </button>
         : <div className={classes.addPhraseFrameWithValidation}>
             <div className={classes.addPhraseLine}>
-                <span>
+                <Typography variant="subtitle1">
                     Nueva frase
-                </span>
-                <input style={{ width: "50%", marginLeft: "2rem", marginRight: "2rem" }} value={newPhrase}
-                    onChange={event => { setNewPhrase(event.target.value); setTouched(true); }}
+                </Typography>
+                <TextField variant="standard" style={{ width: "50%", marginLeft: "2rem", marginRight: "2rem" }} 
+                    value={newPhrase} onChange={event => { setNewPhrase(event.target.value); setTouched(true); }}
+                    error={touched && validationMessage} helperText={touched && validationMessage}
                 />
-                <button disabled={!!validationMessage} onClick={async () => {
+                <Button variant="contained" color="success" size="small" disabled={!!validationMessage} onClick={async () => {
                     toast.success("Frase agregada.");
                     await addPhrase(newPhrase);
                     await props.onAdd();
                     setNewPhrase("");
                     setTouched(false);
-                }}>Agregar</button>
+                }}>Agregar</Button>
                 <div style={{ flexGrow: 1 }} />
                 <button className={classes.plusButton} onClick={() => setIsCompressed(true)}>
                     -
                 </button>
             </div>
-            {touched && validationMessage && <div className={classes.addPhraseValidation}>
+            {/* {touched && validationMessage && <div className={classes.addPhraseValidation}>
                 {validationMessage}
-            </div>}
+            </div>} */}
         </div>;
 }
 
