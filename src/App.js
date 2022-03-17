@@ -27,7 +27,7 @@
  */
 import { AuthorsAndPhrases } from "./components/authorsAndPhrases/AuthorsAndPhrases05ab";
 import classes from "./App.module.css";
-import { Phrases } from "./components/justPhrasesMui/JustPhrasesMui02";
+import { Phrases } from "./components/justPhrasesMui/JustPhrasesMui04";
 import { Route, Routes } from "react-router-dom";
 import { Header } from "./components/scaffold/Header";
 

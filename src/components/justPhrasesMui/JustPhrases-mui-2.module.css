@@ -1,0 +1,68 @@
+.phrase {
+  font-size: 20px;
+}
+
+.phrase-tall {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.phrase-with-button {
+  padding-right: 2rem;
+}
+
+.allPhrasesFrame {
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+.phraseList {
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  border-style: solid;
+  border-color: lightseagreen;
+  border-width: 3px;
+  border-radius: 1rem;
+  padding-left: 3rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.addPhraseFrame {
+  border-style: solid;
+  border-color: lightseagreen;
+  border-width: 3px;
+  border-radius: 1rem;
+  padding-left: 3rem;
+  padding-right: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-top: 2rem;
+}
+
+.addPhraseLine {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.colorSelectionBar {
+  margin-top: 30px;
+}
+
+.plusButtonFrame {
+  margin-top: 2rem;
+}
+
+.plusButton {
+  font-size: 24px;
+  width: 35px;
+  height: 35px;
+  color: aliceblue;
+  background-color: teal;
+  text-align: center;
+  padding-top: auto;
+  padding-bottom: auto;
+  border-radius: .5rem;
+  border-style: none;    /* para anular el borde que le pone el elemento button */
+}
