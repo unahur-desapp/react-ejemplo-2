@@ -6,6 +6,7 @@ import { addPhrase, deletePhrase, getAllPhrases } from "../../services/phrases";
 import { grey, teal } from '@mui/material/colors';
 import { useTheme } from "@mui/system";
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { Link } from "react-router-dom";
 
 
 const sectionFrameStyle = {
@@ -51,6 +52,10 @@ export function Phrases() {
 
         {/* add phrase */}
         <AddPhrase onAdd={fetchPhrases} />
+
+        <Box sx={{ mt: 3 }}>
+            Desde acá también podemos ir a ver las fotos <Link style={{ marginLeft: "10px" }} to="/autores-y-frases">Autores y frases</Link>
+        </Box>
 
         {!phrases && <Box style={{ mt: "2rem" }}>
             <Typography variant="bigText" sx={phraseTallStyle} /* className={classes["phrase-tall"]} */ >

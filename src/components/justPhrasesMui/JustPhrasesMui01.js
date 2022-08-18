@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { addPhrase, deletePhrase, getAllPhrases } from "../../services/phrases";
 import classes from './JustPhrases-mui.module.css'
-import { grey } from '@mui/material/colors';
 import { useTheme } from "@mui/system";
 import useMediaQuery from '@mui/material/useMediaQuery';
 
@@ -39,7 +38,7 @@ export function Phrases() {
                     {color}
                 </Button>
             )}
-            <Button key="no-mostrar" onClick={() => setColorForPhrases(null)} variant="contained" color="relaxed">
+            <Button key="no-mostrar" onClick={() => setColorForPhrases(null)} variant="contained" color="relaxed" size={isShortScreen ? "small" : "medium"}>
                 No mostrar
             </Button>
         </div>
@@ -95,7 +94,7 @@ function AddPhrase(props) {
                 </Typography>
                 <TextField variant="standard" style={{ width: "50%", marginLeft: "2rem", marginRight: "2rem" }} 
                     value={newPhrase} onChange={event => { setNewPhrase(event.target.value); setTouched(true); }}
-                    error={touched && validationMessage} helperText={touched && validationMessage}
+                    error={touched && !!validationMessage} helperText={touched && validationMessage}
                 />
                 <Button variant="contained" color="success" size="small" disabled={!!validationMessage} onClick={async () => {
                     toast.success("Frase agregada.");
