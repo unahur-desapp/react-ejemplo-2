@@ -124,15 +124,16 @@ function PhrasesBoxActuallyChangingColors(props) {
         </div>
         <div className={`${classes.phraseGroupFrame} ${classes.phraseGroupWithColorChange}`}>
             <div className={classes.colorSelectionBar}>
-                {["crimson", "slateblue", "mediumseagreen"].map(
-                    color => <button key={color} onClick={() => setColorForPhrases(color)} style={{ color }}>{color}</button>)}
+                {["crimson", "slateblue", "mediumseagreen", "saddlebrown"].map(
+                    color => <button key={color} onClick={() => setColorForPhrases(color)} style={{ color }}>{color}</button>)
+                }
                 <button key="no-mostrar" onClick={() => setColorForPhrases(null)}>No mostrar</button>
             </div>
             {colorForPhrases && <div className={classes.phraseGroupUnderColorChange}>
                 {phrases.map(phrase => (
                     <div key={phrase} className={`${classes.phrase} ${classes["phrase-div"]}`} style={{ color: colorForPhrases }}>
-                        {phrase}
-                    </div>
+                        {phrase} - en color { colorForPhrases }
+                     </div>
                 ))}
             </div>}
             {!colorForPhrases && <div style={{ marginTop: "2rem"}}>
@@ -140,6 +141,7 @@ function PhrasesBoxActuallyChangingColors(props) {
                     ... elegir un color para ver las frases ...
                 </div>
             </div>}
+            {false}
         </div>
     </div>
 }

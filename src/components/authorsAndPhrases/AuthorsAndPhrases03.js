@@ -39,7 +39,7 @@ function PhrasesBox(props) {
             </div>
         </div>
         <div className="phraseGroupFrame">
-            {phrases.map(phrase => <p key={phrase} className="phrase">{phrase}</p>)}
+            {phrases.map((phrase, ix) => <p key={ix} className="phrase">{phrase}</p>)}
         </div>
     </div>
 }

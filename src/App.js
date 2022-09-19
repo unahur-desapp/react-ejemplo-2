@@ -25,9 +25,9 @@
  * JustPhrasesMui04: el AddPhrases se va a un Modal.
  * 
  */
-import { AuthorsAndPhrases } from "./components/authorsAndPhrases/AuthorsAndPhrases05ab";
+import { AuthorsAndPhrases } from "./components/authorsAndPhrases/AuthorsAndPhrases05b";
 import classes from "./App.module.css";
-import { Phrases } from "./components/justPhrasesMui/JustPhrasesMui04";
+import { Phrases } from "./components/justPhrases/JustPhrases04a";
 import { Route, Routes } from "react-router-dom";
 import { Header } from "./components/scaffold/Header";
 
