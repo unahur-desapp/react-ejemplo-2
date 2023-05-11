@@ -25,9 +25,10 @@
  * JustPhrasesMui04: el AddPhrases se va a un Modal.
  * 
  */
-import { AuthorsAndPhrases } from "./components/authorsAndPhrases/AuthorsAndPhrases05ab";
+import { AuthorsAndPhrases } from "./components/authorsAndPhrases/AuthorsAndPhrases05b";
 import classes from "./App.module.css";
-import { Phrases } from "./components/justPhrasesMui/JustPhrasesMui04";
+import { Phrases } from "./components/justPhrases/JustPhrases08";
+import { Phrases as PhrasesMUI } from "./components/justPhrasesMui/JustPhrasesMui01";
 import { Route, Routes } from "react-router-dom";
 import { Header } from "./components/scaffold/Header";
 
@@ -102,6 +103,14 @@ function AppRouter() {
                     <h1 className={classes.title}>Frases célebres</h1>
                 </div>
                 <Phrases />
+            </>
+        } />
+        <Route path="/frasesMui" element={
+            <>
+                <div className={classes.titleFrame}>
+                    <h1 className={classes.title}>Frases célebres</h1>
+                </div>
+                <PhrasesMUI />
             </>
         } />
         <Route path="*" element={

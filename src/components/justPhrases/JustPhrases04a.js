@@ -7,7 +7,7 @@ import classes from '../authorsAndPhrases/AuthorsAndPhrases.module.css'
 // PhrasesWithAddInSameComponent - versión sencilla, toda en un único componente. El form para nueva frase aparece fijo.
 // PhrasesSeparated - se separa AddPhrase en un componente aparte, hay que mandar fetchPhrases por prop
 // PhrasesSeparated2 - renderizado condicional a que muestre las frases (esto para meterlo más adelante)
-export const Phrases = PhrasesSeparated2;
+export const Phrases = PhrasesSeparated;
 
 // AddPhraseFirstVersion - Botón + para renderización condicional del form para nueva frase, se esconde cuando se acepta la nueva frase.
 //      - validación cuando se le da Enter, uso de toast
@@ -42,6 +42,36 @@ function AddPhraseFirstVersion(props) {
                 toast.success("Frase agregada");
                 await fetchPhrases();
                 setNewPhrase("");
+                // setShowAdd(false);
+            } else {
+                toast.error("la frase debe tener al menos 5 caracteres");
+            }
+        }}>Agregar</button>
+    </div>
+    : <div className={classes.plusButtonFrame}>
+        <div className={classes.plusButton} onClick={() => setShowAdd(true)}>
+            +
+        </div>
+    </div>
+}
+
+function AddPhraseUncontrolled(props) {
+    const { fetchPhrases } = props;
+    const [showAdd, setShowAdd] = useState(false);
+    const inputRef = useRef();
+
+    return showAdd
+    ? <div className={classes.addPhraseFrame}>
+        <span>
+            Nueva frase
+        </span>
+        <input ref={inputRef} style={{ width: "40%", marginLeft: "2rem", marginRight: "2rem" }} />
+        <button onClick={async () => {
+            if (inputRef.current.value && inputRef.current.value.length > 5) {
+                await addPhrase(inputRef.current.value);
+                toast.success("Frase agregada");
+                await fetchPhrases();
+                inputRef.current.value = "";
                 // setShowAdd(false);
             } else {
                 toast.error("la frase debe tener al menos 5 caracteres");

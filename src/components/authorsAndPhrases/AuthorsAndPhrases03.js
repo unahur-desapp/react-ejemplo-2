@@ -14,7 +14,7 @@ const TERMINATOR_DATA = {
 
 const STAR_WARS_DATA = {
     title: 'Star Wars',
-    imageSrc: "https://www.fanbolt.com/storage/2021/10/Star-Wars-Quotes.jpg",
+    imageSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/1920px-Star_Wars_Logo.svg.png",
     phrases: ["May the Force be with you", "I am your father",
         "A long time ago in a galaxy far, far away...", "The dark side is in our blood"],
 }

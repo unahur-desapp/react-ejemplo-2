@@ -15,5 +15,6 @@ function HeaderTwoOptions() {
     return <div style={{ display: "flex", flexDirection: "row", paddingTop: "1rem", paddingBottom: "1rem", backgroundColor: "steelblue" }}>
         <Link style={optionStyle} to="/autores-y-frases">Autores y frases</Link>
         <Link style={optionStyle} to="/frases">Lista de frases</Link>
+        <Link style={optionStyle} to="/frasesMui">Lista de frases - MUI</Link>
     </div>
 }

@@ -20,6 +20,28 @@ export function AuthorsAndPhrases() {
     </>;
 }
 
+/*
+ * Esta implementación es *muy* similar a la anterior, pero funciona de modo incorrecto, 
+ * específicamente entra en un loop en el que hace el getAllPhrases continuamente.
+ * ¿Por qué? 
+ * Comparar con la versión anterior, que funciona correctamente.
+ */
+export function AuthorsAndPhrasesMalo() {
+    const [authorsAndPhrases, setAuthorsAndPhrases] = useState([]);
+
+    const fetchAuthorsAndPhrases = async () => {
+        const obtainedData = await getAllPhrases();
+        setAuthorsAndPhrases(obtainedData);
+    }
+    fetchAuthorsAndPhrases();
+
+    return <>
+        {authorsAndPhrases.map(authorData => 
+            <PhrasesBox key={authorData.author} title={authorData.author} imageSrcs={authorData.imageSrcs} phrases={authorData.phrases} />
+        )}
+    </>;
+}
+
 function PhrasesBox(props) {
     const { title, imageSrcs, phrases } = props;
     const [photoIndex, setPhotoIndex] = useState(0);

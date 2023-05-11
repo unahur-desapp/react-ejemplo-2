@@ -22,7 +22,7 @@ const TERMINATOR_DATA = {
 const STAR_WARS_DATA = {
     author: 'Star Wars',
     imageSrcs: [
-        "https://www.fanbolt.com/storage/2021/10/Star-Wars-Quotes.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/1920px-Star_Wars_Logo.svg.png",
         "https://insolenzadir2d2.it/wp-content/uploads/2016/11/r2d2-and-c3po-star-wars.jpg",
         "https://i.insider.com/60ad1c51a412370019d31cf0?width=1000&format=jpeg&auto=webp",
     ],

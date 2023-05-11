@@ -12,10 +12,10 @@ export function Phrases() {
     const [phrases, setPhrases] = useState(null);
 
     const muiTheme = useTheme();
-    const isShortScreen = useMediaQuery(muiTheme.breakpoints.down('md'));
+    const isNarrowScreen = useMediaQuery(muiTheme.breakpoints.down('md'));
 
     console.log('rendering Phrases')
-    console.log(isShortScreen)
+    console.log(isNarrowScreen)
 
     const fetchPhrases = async () => {
         const obtainedPhrases = await getAllPhrases();
@@ -30,7 +30,7 @@ export function Phrases() {
     return <Stack direction="column" className={classes.allPhrasesFrame}>
         <div className={`${classes.colorSelectionBar} ${classes.expandedColorSelectionBar}`}>
             {["crimson", "slateblue", "mediumseagreen"].map(
-                color => <Button variant="contained" color="relaxed" size={isShortScreen ? "small" : "medium"}
+                color => <Button variant="contained" color="relaxed" size={isNarrowScreen ? "small" : "large"}
                     key={color} onClick={() => setColorForPhrases(color)} 
                     // sx={{ color, backgroundColor: grey[200], "&:hover": { backgroundColor: grey[300] } }} 
                     sx={{ color }}
@@ -38,7 +38,7 @@ export function Phrases() {
                     {color}
                 </Button>
             )}
-            <Button key="no-mostrar" onClick={() => setColorForPhrases(null)} variant="contained" color="relaxed" size={isShortScreen ? "small" : "medium"}>
+            <Button key="no-mostrar" onClick={() => setColorForPhrases(null)} variant="contained" color="relaxed" size={isNarrowScreen ? "small" : "large"}>
                 No mostrar
             </Button>
         </div>
@@ -57,7 +57,7 @@ export function Phrases() {
                     className={`${classes["phrase-tall"]} ${classes["phrase-with-button"]}`}
                     style={{ color: colorForPhrases }}
                 >
-                    <Typography variant="bigText">{phrase}</Typography>
+                    <Typography variant={isNarrowScreen ? "body1" : "bigText"}>{phrase}</Typography>
                     <Button variant="contained" color="relaxed" size="small" endIcon={<DeleteIcon />} onClick={async () => {
                         await deletePhrase(phrase);
                         await fetchPhrases();
@@ -92,7 +92,7 @@ function AddPhrase(props) {
                 <Typography variant="subtitle1">
                     Nueva frase
                 </Typography>
-                <TextField variant="standard" style={{ width: "50%", marginLeft: "2rem", marginRight: "2rem" }} 
+                <TextField variant="standard" sx={{ width: "50%", mx: "2rem" }} 
                     value={newPhrase} onChange={event => { setNewPhrase(event.target.value); setTouched(true); }}
                     error={touched && !!validationMessage} helperText={touched && validationMessage}
                 />

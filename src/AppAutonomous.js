@@ -96,7 +96,7 @@ function App05() {
             <div className="phraseAuthorInfoFrame">
                 <h2>Star Wars</h2>
                 <div>
-                    <img className="image" src="https://www.fanbolt.com/storage/2021/10/Star-Wars-Quotes.jpg" alt=""/>
+                    <img className="image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/1920px-Star_Wars_Logo.svg.png" alt=""/>
                 </div>
             </div>
             <div className="phraseGroupFrame">
@@ -149,7 +149,7 @@ function App05NoFlexbox() {
             <div className="phraseAuthorInfoFramePrueba">
                 <h2>Star Wars</h2>
                 <div>
-                    <img className="image" src="https://www.fanbolt.com/storage/2021/10/Star-Wars-Quotes.jpg" alt="" />
+                    <img className="image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/1920px-Star_Wars_Logo.svg.png" alt="" />
                 </div>
             </div>
             <div className="phraseGroupFramePrueba">

@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import "./toast.css";
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@emotion/react';
-import { customMuiTheme } from './muiTheme';
+import { customMuiTheme, customMuiTheme2 } from './muiTheme';
 
 ReactDOM.render(
     <ThemeProvider theme={customMuiTheme}>
