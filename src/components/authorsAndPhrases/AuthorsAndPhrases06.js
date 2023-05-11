@@ -3,15 +3,33 @@ import { getAllPhrases } from '../../services/authorsAndPhrases';
 import classes from './AuthorsAndPhrases.module.css'
 
 export function AuthorsAndPhrases() {
-    const [authorsAndPhrases, setAuthorsAndPhrases] = useState([]);
+    const [authorsAndPhrases, setAuthorsAndPhrases] = useState(null);
 
     useEffect(() => {
         const fetchAuthorsAndPhrases = async () => {
             const obtainedData = await getAllPhrases();
-            setAuthorsAndPhrases(obtainedData);
+            setTimeout(() => setAuthorsAndPhrases(obtainedData), 1200);
+            // setAuthorsAndPhrases(obtainedData);
         }
         fetchAuthorsAndPhrases();
     }, []);
+
+    return <>
+        {!authorsAndPhrases && <div>Loading ...</div>}
+        {authorsAndPhrases && authorsAndPhrases.map(authorData => 
+            <PhrasesBox key={authorData.author} title={authorData.author} imageSrcs={authorData.imageSrcs} phrases={authorData.phrases} />
+        )}
+    </>;
+}
+
+export function AuthorsAndPhrasesMalo() {
+    const [authorsAndPhrases, setAuthorsAndPhrases] = useState([]);
+
+    const fetchAuthorsAndPhrases = async () => {
+        const obtainedData = await getAllPhrases();
+        setAuthorsAndPhrases(obtainedData);
+    }
+    fetchAuthorsAndPhrases();
 
     return <>
         {authorsAndPhrases.map(authorData => 

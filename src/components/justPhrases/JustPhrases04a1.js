@@ -1,7 +1,9 @@
+import { Button, Stack } from '@mui/material';
+import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { addPhrase, deletePhrase, getAllPhrases } from '../../services/phrases';
-import classes from '../authorsAndPhrases/AuthorsAndPhrases.module.css'
+import classes from '../authorsAndPhrases/AuthorsAndPhrases4a1.module.css'
 
 
 // PhrasesWithAddInSameComponent - versión sencilla, toda en un único componente. El form para nueva frase aparece fijo.
@@ -21,7 +23,7 @@ export const Phrases = PhrasesSeparated;
 //      - deshabilitar el botón si es inválido
 //      - renderizar el + y el - como botones, para que ande bien el tabOrder
 
-const AddPhrase = AddPhraseValidationAfterFirstKeystroke;
+const AddPhrase = AddPhraseUncontrolled;
 
 function AddPhraseFirstVersion(props) {
     const { fetchPhrases } = props;
@@ -106,9 +108,9 @@ function AddPhraseValidationWhileTyping(props) {
     return showAdd
         ? <div className={classes.addPhraseFrameWithValidation}>
             <div className={classes.addPhraseLine}>
-                <span>
+                <div>
                     Nueva frase
-                </span>
+                </div>
                 <input value={newPhrase} onChange={event => setNewPhrase(event.target.value)}
                     style={{ width: "40%", marginLeft: "2rem", marginRight: "2rem" }}
                 />
@@ -285,12 +287,22 @@ function PhrasesSeparated() {
         fetchPhrases();
     }, []);
 
-    return <div className={classes.allPhrasesFrame}>
-        <div className={`${classes.colorSelectionBar} ${classes.expandedColorSelectionBar}`}>
-            {["crimson", "slateblue", "mediumseagreen"].map(
-                color => <button key={color} onClick={() => setColorForPhrases(color)} style={{ color }}>{color}</button>)}
-            <button key="no-mostrar" onClick={() => setColorForPhrases(null)}>No mostrar</button>
-        </div>
+    return <Stack className={classes.allPhrasesFrame} direction="column">
+        <Stack direction="row" justifyContent='space-between' className={classes.colorSelectionBar}>
+            {["crimson", "slateblue", "mediumseagreen"].map( color => (
+                <Button key={color} variant="contained" onClick={() => setColorForPhrases(color)} 
+                    sx={{ color, backgroundColor: "#eeeeee", "&:hover": {backgroundColor: "#e0e0e0"} }}
+                >
+                    {color}
+                </Button>
+            ))}
+            <Button variant="contained" key="no-mostrar" 
+                sx={{ color: "black", backgroundColor: "#eeeeee", "&:hover": {backgroundColor: "#e0e0e0"} }}
+                onClick={() => setColorForPhrases(null)}
+            >
+                No mostrar
+            </Button>
+        </Stack>
 
         <AddPhrase fetchPhrases={fetchPhrases} />
 
@@ -302,7 +314,7 @@ function PhrasesSeparated() {
         </div>}
 
         {/* phrases */}
-        {phrases && colorForPhrases && <div className={classes.phraseList}>
+        {phrases && colorForPhrases && <Stack direction="column" className={classes.phraseList}>
             {phrases.map(phrase => (
                 <div key={phrase}
                     className={`${classes.phrase} ${classes["phrase-tall"]} ${classes["phrase-with-button"]}`}
@@ -310,14 +322,16 @@ function PhrasesSeparated() {
                 >
                     <div>{phrase}</div>
                     <div>
-                        <button onClick={async () => {
+                        <Button variant="contained" size='small' endIcon={<DeleteSweepIcon />} 
+                         sx={{ color: colorForPhrases, backgroundColor: "#eeeeee", "&:hover": {backgroundColor: "#e0e0e0"} }}
+                         onClick={async () => {
                             await deletePhrase(phrase);
                             await fetchPhrases();
-                        }}>Eliminar</button>
+                        }}>Eliminarx</Button>
                     </div>
                 </div>
             ))}
-        </div>}
+        </Stack>}
 
         {/* no phrases */}
         {phrases && !colorForPhrases && <div style={{ marginTop: "2rem" }}>
@@ -325,7 +339,7 @@ function PhrasesSeparated() {
                 ... elegir un color para ver las frases ...
             </div>
         </div>}
-    </div>
+    </Stack>
 }
 
 

@@ -1,7 +1,9 @@
+import { Button, Typography } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { addPhrase, deletePhrase, getAllPhrases } from '../../services/phrases';
-import classes from '../authorsAndPhrases/AuthorsAndPhrases.module.css'
+import classes from '../authorsAndPhrases/AuthorsAndPhrases4a2.module.css'
 
 
 // PhrasesWithAddInSameComponent - versión sencilla, toda en un único componente. El form para nueva frase aparece fijo.
@@ -21,7 +23,7 @@ export const Phrases = PhrasesSeparated;
 //      - deshabilitar el botón si es inválido
 //      - renderizar el + y el - como botones, para que ande bien el tabOrder
 
-const AddPhrase = AddPhraseValidationAfterFirstKeystroke;
+const AddPhrase = AddPhraseValidationWhileTyping;
 
 function AddPhraseFirstVersion(props) {
     const { fetchPhrases } = props;
@@ -112,7 +114,7 @@ function AddPhraseValidationWhileTyping(props) {
                 <input value={newPhrase} onChange={event => setNewPhrase(event.target.value)}
                     style={{ width: "40%", marginLeft: "2rem", marginRight: "2rem" }}
                 />
-                <button onClick={async () => {
+                <button disabled={validationMessage} onClick={async () => {
                     if (newPhrase.length > 5) {
                         await addPhrase(newPhrase);
                         toast.success("Frase agregada");
@@ -202,10 +204,29 @@ function AddPhraseValidationAfterFirstKeystroke(props) {
 }
 
 
+
+function AddPhraseSeparated(props) {
+    const [newPhrase, setNewPhrase] = useState("");  // qué pasa si se deja undefined ...
+
+    return <div className={classes.addPhraseFrame}>
+        <span>
+            Nueva frase
+        </span>
+        <input value={newPhrase} onChange={event => setNewPhrase(event.target.value)}
+            style={{ width: "50%", marginLeft: "2rem", marginRight: "2rem" }}
+        />
+        <button onClick={async () => {
+            await addPhrase(newPhrase);
+            await props.fetchPhrases();
+            // setNewPhrase("");
+        }}>Agregar</button>
+    </div>;
+}
+
+
 function PhrasesWithAddInSameComponent() {
     const [colorForPhrases, setColorForPhrases] = useState("crimson");
     const [phrases, setPhrases] = useState(null);
-    const [newPhrase, setNewPhrase] = useState("");  // qué pasa si se deja undefined ...
 
     const fetchPhrases = async () => {
         const obtainedData = await getAllPhrases();
@@ -225,19 +246,7 @@ function PhrasesWithAddInSameComponent() {
         </div>
 
         {/* add phrase */}
-        <div className={classes.addPhraseFrame}>
-            <span>
-                Nueva frase
-            </span>
-            <input value={newPhrase} onChange={event => setNewPhrase(event.target.value)}
-                style={{ width: "50%", marginLeft: "2rem", marginRight: "2rem" }}
-            />
-            <button onClick={async () => {
-                await addPhrase(newPhrase);
-                await fetchPhrases();
-                // setNewPhrase("");
-            }}>Agregar</button>
-        </div>
+        <AddPhraseSeparated fetchPhrases={fetchPhrases} />
 
         {/* "loading ..." message */}
         {!phrases && <div style={{ marginTop: "2rem" }}>
@@ -289,7 +298,13 @@ function PhrasesSeparated() {
         <div className={`${classes.colorSelectionBar} ${classes.expandedColorSelectionBar}`}>
             {["crimson", "slateblue", "mediumseagreen"].map(
                 color => <button key={color} onClick={() => setColorForPhrases(color)} style={{ color }}>{color}</button>)}
-            <button key="no-mostrar" onClick={() => setColorForPhrases(null)}>No mostrar</button>
+            <Button 
+                variant="contained" color="relaxed" key="no-mostrar" 
+                // sx={{ color: "black", backgroundColor: grey[200], "&:hover": { backgroundColor: grey[500] } }}
+                onClick={() => setColorForPhrases(null)}
+            >
+                No mostrar
+            </Button>
         </div>
 
         <AddPhrase fetchPhrases={fetchPhrases} />
@@ -308,7 +323,7 @@ function PhrasesSeparated() {
                     className={`${classes.phrase} ${classes["phrase-tall"]} ${classes["phrase-with-button"]}`}
                     style={{ color: colorForPhrases }}
                 >
-                    <div>{phrase}</div>
+                    <Typography variant='bigText'>{phrase}</Typography>
                     <div>
                         <button onClick={async () => {
                             await deletePhrase(phrase);

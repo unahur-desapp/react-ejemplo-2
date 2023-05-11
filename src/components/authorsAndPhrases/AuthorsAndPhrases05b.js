@@ -20,12 +20,12 @@ const TERMINATOR_DATA = {
 const STAR_WARS_DATA = {
     id: 3,
     title: 'Star Wars',
-    imageSrc: "https://www.fanbolt.com/storage/2021/10/Star-Wars-Quotes.jpg",
+    imageSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/1920px-Star_Wars_Logo.svg.png",
     phrases: ["May the Force be with you", "I am your father",
         "A long time ago in a galaxy far, far away...", "The dark side is in our blood"],
 }
 
-const PhrasesBox = PhrasesBoxActuallyChangingColors;
+const PhrasesBox = PhrasesBoxWithButtons;
 
 export function AuthorsAndPhrases() {
     return (<>
@@ -52,7 +52,11 @@ function PhrasesBoxBeforeButtons(props) {
                 <button>Color 3</button>
             </div>
             <div className={classes.phraseGroupUnderColorChange}>
-                {phrases.map(phrase => <div key={phrase} className={`${classes.phrase} ${classes["phrase-div"]}`}>{phrase}</div>)}
+                {phrases.map(phrase => 
+                    <div key={phrase} className={`${classes.phrase} ${classes["phrase-div"]}`} style={{ color: 'crimson' }}>
+                        {phrase}
+                    </div>
+                )}
             </div>
         </div>
     </div>
@@ -60,6 +64,7 @@ function PhrasesBoxBeforeButtons(props) {
 
 function PhrasesBoxWithButtons(props) {
     const { title, imageSrc, phrases } = props;
+    const [phrasesColor, setPhrasesColor] = useState("crimson");
 
     return <div className={classes.phraseAuthorBlock2}>
         <div className={classes.phraseAuthorInfoFrame}>
@@ -70,16 +75,23 @@ function PhrasesBoxWithButtons(props) {
         </div>
         <div className={`${classes.phraseGroupFrame} ${classes.phraseGroupWithColorChange}`}>
             <div className={classes.colorSelectionBar}>
-                <button onClick={() => console.log("Cambiando a crimson")} style={{ color: "crimson" }}>crimson</button>
-                <button onClick={() => console.log("Cambiando a slateblue")} style={{ color: "slateblue" }}>slateblue</button>
-                <button onClick={() => console.log("Cambiando a black")} style={{ color: "black" }}>black</button>
+                <button onClick={() => setPhrasesColor("crimson")} style={{ color: "crimson" }}>crimson</button>
+                <button onClick={() => setPhrasesColor("slateblue")} style={{ color: "slateblue" }}>slateblue</button>
+                <button onClick={() => setPhrasesColor("black")} style={{ color: "black" }}>black</button>
+                <button onClick={() => setPhrasesColor(null)} style={{ color: "black" }}>No mostrar</button>
             </div>
             <div>
-                Color elegido: crimson
+                Color elegido: {phrasesColor}
             </div>
-            <div className={classes.phraseGroupUnderColorChange}>
-                {phrases.map(phrase => <div key={phrase} className={`${classes.phrase} ${classes["phrase-div"]}`}>{phrase}</div>)}
-            </div>
+            {phrasesColor 
+              ? <div className={classes.phraseGroupUnderColorChange}>
+                    {phrases.map(phrase => 
+                        <div key={phrase} className={`${classes.phrase} ${classes["phrase-div"]}`} style={{ color: phrasesColor }}>
+                            {phrase}
+                        </div>
+                    )}
+                </div>
+              : <div>Pulse un color para ver las frases</div>}
         </div>
     </div>
 }

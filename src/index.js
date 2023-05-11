@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { App } from './App';
+import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material';
 import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { App } from './App';
 import './index.css';
 import './indexPruebaFlexbox.css';
-import 'react-toastify/dist/ReactToastify.css';
 import "./toast.css";
-import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider } from '@emotion/react';
-import { customMuiTheme } from './muiTheme';
+import { customMuiTheme, customMuiTheme2 } from './muiTheme';
 
 ReactDOM.render(
     <ThemeProvider theme={customMuiTheme}>

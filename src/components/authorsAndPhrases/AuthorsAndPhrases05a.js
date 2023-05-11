@@ -25,7 +25,7 @@ const TERMINATOR_DATA = {
 const STAR_WARS_DATA = {
     title: 'Star Wars',
     imageSrcs: [
-        "https://www.fanbolt.com/storage/2021/10/Star-Wars-Quotes.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/1920px-Star_Wars_Logo.svg.png",
         "https://insolenzadir2d2.it/wp-content/uploads/2016/11/r2d2-and-c3po-star-wars.jpg",
     ],
     phrases: ["May the Force be with you", "I am your father",
@@ -33,7 +33,7 @@ const STAR_WARS_DATA = {
 }
 
 
-const PhrasesBox = PhrasesBoxChangingPhotos;
+const PhrasesBox = PhrasesBoxBeforeButtons;
 
 export function AuthorsAndPhrases() {
     return (<>
@@ -45,16 +45,17 @@ export function AuthorsAndPhrases() {
 
 function PhrasesBoxBeforeButtons(props) {
     const { title, imageSrcs, phrases } = props;
+    const [imageIndex, setImageIndex] = useState(0);
 
     return <div className={classes.phraseAuthorBlock}>
         <div className={classes.phraseAuthorInfoFrame}>
             <h2>{title} - {phrases.length} frases</h2>
             <div className={classes.authorImagesFrame}>
                 <div className={classes.authorImageSelectorBar}>
-                    <div>Foto 1</div>
-                    <div>Foto 2</div>
+                    <button onClick={() => setImageIndex(0)}>Foto 1</button>
+                    <button onClick={() => setImageIndex(1)}>Foto 2</button>
                 </div>
-                <img className={classes.image2} src={imageSrcs[1]} alt="" />
+                <img className={classes.image2} src={imageSrcs[imageIndex]} alt="" />
             </div>
         </div>
         <div className={classes.phraseGroupFrame}>
